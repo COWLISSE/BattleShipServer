@@ -1,5 +1,6 @@
 package ca.qc.cegeptr.mat1892498.battleshipserver.requests.handler;
 
+import ca.qc.cegeptr.mat1892498.battleshipserver.game.ActionHandler;
 import ca.qc.cegeptr.mat1892498.battleshipserver.requests.Response;
 import ca.qc.cegeptr.mat1892498.battleshipserver.game.users.User;
 import ca.qc.cegeptr.mat1892498.battleshipserver.game.users.UserManager;
@@ -21,17 +22,13 @@ public class BattleshipServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         Response requestData = (Response) msg;
-//        Response responseData = new Response();
-//        responseData.json = Server.gson.toJson(new ShipLocation());
-//        ctx.writeAndFlush(responseData);
-        System.out.println(ctx.channel().id() + " -- " + requestData.toString());
-//        super.channelRead(ctx, msg);
+        new ActionHandler(ctx, requestData);
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         System.out.println("Cause: " + cause.getMessage());
     }
 
