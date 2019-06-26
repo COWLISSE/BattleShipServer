@@ -1,4 +1,4 @@
-package ca.qc.cegeptr.mat1892498.battleshipserver.game.boards;
+package ca.qc.cegeptr.mat1892498.battleshipserver.battleship.boards;
 
 import java.util.Arrays;
 
@@ -9,10 +9,6 @@ public class BoatJson {
 
     public String getDirection() {
         return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
     }
 
     public String[] getPos() {

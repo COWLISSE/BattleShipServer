@@ -1,16 +1,17 @@
 package ca.qc.cegeptr.mat1892498.battleshipserver;
 
+import ca.qc.cegeptr.mat1892498.battleshipserver.requests.Response;
 import ca.qc.cegeptr.mat1892498.battleshipserver.requests.decoder.ResponseDecoder;
 import ca.qc.cegeptr.mat1892498.battleshipserver.requests.encoder.ResponseEncoder;
-import ca.qc.cegeptr.mat1892498.battleshipserver.requests.handler.BattleshipServerHandler;
+import ca.qc.cegeptr.mat1892498.battleshipserver.requests.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class BattleshipServer {
 
@@ -24,7 +25,7 @@ public class BattleshipServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new ResponseDecoder(), new ResponseEncoder(), new BattleshipServerHandler());
+                            ch.pipeline().addLast(new ResponseDecoder(), new ResponseEncoder(), new ServerHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
